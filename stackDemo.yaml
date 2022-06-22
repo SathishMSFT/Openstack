@@ -1,0 +1,18 @@
+heat_template_version: 2015-04-30
+
+resources:
+ Group_of_VMs:
+  type: OS::Heat::ResourceGroup
+  properties:
+    count: 2
+    resource_def:
+      type: OS::Nova::Server
+      properties:
+        name: my_vm%index%
+        flavor: m1.tiny
+        image: cirros
+        networks:
+          - network: demo-net
+        key_name: mykey
+        security_groups:
+          - default
