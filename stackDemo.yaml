@@ -1,5 +1,8 @@
 heat_template_version: 2015-04-30
-
+parameters:
+  network_name:
+    type: string
+    label: network name
 resources:
  Group_of_VMs:
   type: OS::Heat::ResourceGroup
@@ -12,7 +15,7 @@ resources:
         flavor: m1.tiny
         image: cirros
         networks:
-          - network: demo-net
+          - network: { get_param: network_name }
         key_name: mykey
         security_groups:
           - default
