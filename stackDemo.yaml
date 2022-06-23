@@ -4,18 +4,33 @@ parameters:
     type: string
     label: network name
 resources:
- Group_of_VMs:
-  type: OS::Heat::ResourceGroup
-  properties:
-    count: 2
-    resource_def:
-      type: OS::Nova::Server
-      properties:
-        name: my_vm%index%
-        flavor: m1.tiny
-        image: cirros
-        networks:
-          - network: { get_param: network_name }
-        key_name: mykey
-        security_groups:
-          - default
+  NF1_Infra:
+    type: OS::Heat::ResourceGroup
+    properties:
+      count: 2
+      resource_def:
+        type: OS::Nova::Server
+        properties:
+          name: nf1vm_%index%
+          flavor: m1.tiny
+          image: cirros
+          networks:
+            - network: { get_param: network_name }
+          key_name: mykey
+          security_groups:
+            - default
+  NF2_Infra:
+    type: OS::Heat::ResourceGroup
+    properties:
+      count: 2
+      resource_def:
+        type: OS::Nova::Server
+        properties:
+          name: nf2vm%index%
+          flavor: m1.tiny
+          image: cirros
+          networks:
+            - network: { get_param: network_name }
+          key_name: mykey
+          security_groups:
+            - default
